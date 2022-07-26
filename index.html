@@ -7,10 +7,42 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .box {
+      background-color: purple;
+      height: 100px;
+      width: 200px;
+    }
+    .box.two {
+      background-color: red;
+    }
+    .box.three {
+      background-color: blue;
+    }
+    [v-cloak] {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="app">{{ greeting }}</div>
+  <!-- v-cloak is a very useful direactive to hide everything while rendering is running -->
+  <div id="app" v-cloak>
+    {{ greeting }}
+
+    <!-- model directive to use with input elements -->
+    <input v-model="greeting"/>
+    <hr>
+
+    <!-- this v-if directive is like a statement in JS -->
+    <!-- this directive is very similar to v-show, which adds a display: none property to the element -->
+    <!-- it's better to use v-show when it's necessary toggling something -->
+    <div class="box" v-if="isVisible"></div>
+    <div class="box two" v-else-if="isVisible2"></div>
+    <div class="box three" v-else></div>
+
+  </div>
+
 
   <!-- Import Vue CDN -->
   <script src="https://unpkg.com/vue@3"></script>
@@ -21,7 +53,9 @@
     let app = Vue.createApp({
       data() {
         return {
-          greeting: 'Hello Vue JS'
+          greeting: 'Hello Vue JS',
+          isVisible: true,
+          isVisible2: false
         }
       }
     })
